@@ -36,10 +36,22 @@ var DiamondSprite = cc.Layer.extend({
 
 		switch (type){
 			case 1:
-				this.drawPoint(cc.p(0,0),true);
+				this.drawPoint(cc.p(0,PublicData.item_height),true);
 				break;
 			case 2:
 				this.drawTian();
+				break;
+			case 3:
+				this.drawTu(this.direction);
+				break;
+			case 4:
+				this.drawLong(this.direction);
+				break;
+			case 5:
+				this.drawZhuan(this.direction);
+				break;	
+			case 6:
+				this.drawL(this.direction);
 				break;
 			default:
 				break;
@@ -81,16 +93,6 @@ var DiamondSprite = cc.Layer.extend({
 	 */
 	drawTian : function(){
 		/*绘制田方块的各个点*/
-		this.drawPoint();
-		this.drawPoint(
-			cc.p(PublicData.item_width,0)
-		);
-		this.drawPoint(
-			cc.p(0,-PublicData.item_height)
-		);
-		this.drawPoint(
-			cc.p(PublicData.item_width , -PublicData.item_height)
-		);
 		
 		this.width = PublicData.item_width * 2;//定义该方块宽度
 		this.height = PublicData.item_height * 2;//定义该方块高度
@@ -100,6 +102,186 @@ var DiamondSprite = cc.Layer.extend({
 		this.vector.push([0,1]);
 		this.vector.push([-1,0]);
 		this.vector.push([-1,1]);
+		
+		for (var len = this.vector.length , i = len - 1; i >= 0 ; --i) {
+			this.drawPoint(cc.p(this.vector[i][1] * PublicData.item_width , this.vector[i][0] * PublicData.item_height + this.height));
+		}
 	},
 	
+	drawTu : function(dir){
+
+		if(dir == 0){
+//			
+			this.width = PublicData.item_width * 3;
+			this.height = PublicData.item_height * 2;
+			
+			this.vector.push([0,0]);
+			this.vector.push([0,1]);
+			this.vector.push([0,2]);
+			this.vector.push([-1,1]);
+		}else if(dir == 1){
+//			
+			this.width = PublicData.item_width * 2;
+			this.height = PublicData.item_height * 3;
+			
+			this.vector.push([0,1]);
+			this.vector.push([-1,0]);
+			this.vector.push([-1,1]);
+			this.vector.push([-2,1]);
+		}else if(dir == 2){
+			
+			this.width = PublicData.item_width * 3;
+			this.height = PublicData.item_height * 2;
+			
+			this.vector.push([-1,0]);
+			this.vector.push([-1,1]);
+			this.vector.push([-1,2]);
+			this.vector.push([0,1]);
+		}else if(dir == 3){
+			
+			this.width = PublicData.item_width * 2;
+			this.height = PublicData.item_height * 3;
+			
+			this.vector.push([0,0]);
+			this.vector.push([-1,0]);
+			this.vector.push([-1,1]);
+			this.vector.push([-2,0]);
+		}
+		
+		for (var len = this.vector.length , i = len - 1; i >= 0 ; --i) {
+			this.drawPoint(cc.p(this.vector[i][1] * PublicData.item_width , this.vector[i][0] * PublicData.item_height + this.height));
+		}
+
+	},
+	
+	drawLong : function(dir){
+		if(dir == 0 || dir == 2){
+			
+			this.width = PublicData.item_width * 4;
+			this.height = PublicData.item_height;
+			
+			this.vector.push([0,0]);
+			this.vector.push([0,1]);
+			this.vector.push([0,2]);
+			this.vector.push([0,3]);
+		}else{
+			
+			this.width = PublicData.item_width;
+			this.height = PublicData.item_height * 4;
+			
+			this.vector.push([0,0]);
+			this.vector.push([-1,0]);
+			this.vector.push([-2,0]);
+			this.vector.push([-3,0]);
+		}
+
+		for (var len = this.vector.length , i = len - 1; i >= 0 ; --i) {
+			this.drawPoint(cc.p(this.vector[i][1] * PublicData.item_width , this.vector[i][0] * PublicData.item_height + this.height));
+		}
+	},
+	
+	drawZhuan : function(dir){
+
+		if(dir == 0){
+			/*
+			 * ##
+			 * 	##
+			 */
+//			
+			this.width = PublicData.item_width * 3;
+			this.height = PublicData.item_height * 2;
+			
+			this.vector.push([0,0]);
+			this.vector.push([0,1]);
+			this.vector.push([-1,1]);
+			this.vector.push([-1,2]);
+			
+		}else if(dir == 1){
+			/*
+			 * #
+			 * ##
+			 * 	#		
+			 */
+//			
+			this.width = PublicData.item_width * 2;
+			this.height = PublicData.item_height * 3;
+			
+			this.vector.push([0,0]);
+			this.vector.push([-1,0]);
+			this.vector.push([-1,1]);
+			this.vector.push([-2,1]);
+		}else if(dir == 2){
+			/*
+			 *  ##
+			 * ##
+			 */
+			
+			this.width = PublicData.item_width * 3;
+			this.height = PublicData.item_height * 2;
+			
+			this.vector.push([0,2]);
+			this.vector.push([0,1]);
+			this.vector.push([-1,1]);
+			this.vector.push([-1,0]);
+		}else if(dir == 3){
+			
+			this.width = PublicData.item_width * 2;
+			this.height = PublicData.item_height * 3;
+			
+			this.vector.push([0,1]);
+			this.vector.push([-1,0]);
+			this.vector.push([-1,1]);
+			this.vector.push([-2,0]);
+		}		
+		
+		
+		for (var len = this.vector.length , i = len - 1; i >= 0 ; --i) {
+			this.drawPoint(cc.p(this.vector[i][1] * PublicData.item_width , this.vector[i][0] * PublicData.item_height + this.height));
+		}
+	},
+	
+	drawL : function(dir){
+		if(dir == 0){
+			
+			this.width = PublicData.item_width * 2;
+			this.height = PublicData.item_height * 3;
+			
+			this.vector.push([0,0]);
+			this.vector.push([0,1]);
+			this.vector.push([-1,0]);
+			this.vector.push([-2,0]);
+			
+		}else if(dir == 1){
+			
+			this.width = PublicData.item_width * 3;
+			this.height = PublicData.item_height * 2;
+			
+			this.vector.push([0,0]);
+			this.vector.push([0,1]);
+			this.vector.push([0,2]);
+			this.vector.push([-1,2]);
+		}else if(dir == 2){
+			
+			this.width = PublicData.item_width * 2;
+			this.height = PublicData.item_height * 3;
+			
+			this.vector.push([0,0]);
+			this.vector.push([-1,0]);
+			this.vector.push([-2,0]);
+			this.vector.push([-2,1]);
+		}else if(dir == 3){
+			
+			this.width = PublicData.item_width * 3;
+			this.height = PublicData.item_height * 2;
+			
+			this.vector.push([0,0]);
+			this.vector.push([0,1]);
+			this.vector.push([0,2]);
+			this.vector.push([-1,0]);
+		}		
+		
+		for (var len = this.vector.length , i = len - 1; i >= 0 ; --i) {
+			this.drawPoint(cc.p(this.vector[i][1] * PublicData.item_width , this.vector[i][0] * PublicData.item_height + this.height));
+		}
+	},
 });
